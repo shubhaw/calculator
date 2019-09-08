@@ -3,37 +3,42 @@ import styleClasses from './ButtonsPanel.module.css';
 import Button from './Button/Button';
 
 const ButtonsPanel = props => {
+    const backspaceStyle = {
+        fontSize: '16px',
+        fontWeight: 'normal',
+        paddingTop: '7px'
+    }
     return (
         <div className={styleClasses.ButtonsPanel}>
             <div>
-                <Button buttonType='Operation' value='CE' />
-                <Button buttonType='Operation' value='C' />
-                <Button buttonType='Operation' value='Clear' />
-                <Button buttonType='Operation' value='/' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='CE' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='C' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='Backspace' specialStyle={backspaceStyle} />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='/' />
             </div>
             <div>
-                <Button buttonType='Number' value='7' />
-                <Button buttonType='Number' value='8' />
-                <Button buttonType='Number' value='9' />
-                <Button buttonType='Operation' value='x' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='7' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='8' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='9' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='x' />
             </div>
             <div>
-                <Button buttonType='Number' value='4' />
-                <Button buttonType='Number' value='5' />
-                <Button buttonType='Number' value='6' />
-                <Button buttonType='Operation' value='-' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='4' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='5' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='6' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='-' />
             </div>
             <div>
-                <Button buttonType='Number' value='1' />
-                <Button buttonType='Number' value='2' />
-                <Button buttonType='Number' value='3' />
-                <Button buttonType='Operation' value='+' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='1' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='2' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='3' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='+' />
             </div>
             <div>
-                <Button buttonType='Number' value='+/-' />
-                <Button buttonType='Number' value='0' />
-                <Button buttonType='Number' value='.' />
-                <Button buttonType='Operation' value='=' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='+/-' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='0' />
+                <Button onPress={props.onButtonPressed} buttonType='Number' value='.' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='=' />
             </div>
         </div>
     )
