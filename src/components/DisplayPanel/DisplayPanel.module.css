@@ -1,0 +1,7 @@
+.DisplayPanel {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    height: 80px;
+    text-align: right;
+}
