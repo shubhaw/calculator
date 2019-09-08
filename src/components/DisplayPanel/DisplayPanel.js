@@ -6,8 +6,8 @@ import Current from './Current/Current';
 const DisplayPanel = props => {
     return (
         <div className={styleClasses.DisplayPanel}>
-            <Stack value='5+4/3' />
-            <Current value='3' />
+            <Stack value={props.stackValue} />
+            <Current value={props.currentValue} />
         </div>
     )
 };
