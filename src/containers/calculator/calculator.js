@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Aux from '../../hoc//Auxiliary/Auxiliary';
 import DisplayPanel from '../../components/DisplayPanel/DisplayPanel';
 import ButtonsPanel from '../../components/ButtonsPanel/ButtonsPanel';
+import {
+    PRESS_C_BUTTON,
+    PRESS_BACKSPACE_BUTTON,
+    PRESS_NUMBER_BUTTON,
+    PRESS_OPERATION_BUTTON,
+    PRESS_EQUALS_TO_BUTTON
+} from '../../store/actions/actionTypes';
 
 class Calculator extends Component {
     state = {
@@ -14,101 +22,82 @@ class Calculator extends Component {
     }
 
     onButtonPressed = (type, value) => {
-
-
-        if (type === 'Operation' && (value === 'C' || value === 'CE')) {
-            this.resetStates();
+        if (type === 'Number') {
+            this.props.pressNumber(value);
             return;
         }
 
-        if (type === 'Operation' && value === '+/-') {
-            let currentInput = this.state.displayText;
-            if (currentInput.toString().substr(0, 1) === '-') {
-                currentInput = currentInput.toString().substr(1);
-            } else {
-                currentInput = '-' + currentInput;
-            }
-            this.setState({
-                currentInput: currentInput,
-                displayText: currentInput
-            })
-            return;
-        }
-
-        if (type === 'Operation' && value === 'Backspace') {
-            let currentInput = this.state.currentInput;
-
-            currentInput = currentInput.toString().substr(0, currentInput.length - 1);
-            let stack = [...this.state.stack];
-            stack.pop();
-            this.setState({
-                stack: stack,
-                currentInput: currentInput,
-                displayText: currentInput
-            });
-            console.log(currentInput);
-            return;
-        }
-
-        if (type === 'Operation') {
-            if (this.state.currentInput !== 0) {
-                if (!this.state.currentOperation) {
-                    this.setState((prevState) => {
-                        return {
-                            currentResult: Number(prevState.currentInput),
-                            currentInput: 0,
-                            currentOperation: value
-                        }
-                    });
+        switch (value) {
+            case 'C':
+            case 'CE':
+                this.props.pressC();
+                break;
+            case 'Backspace':
+                this.props.pressBackspace();
+                break;
+            case '+/-':
+                let currentInput = this.state.displayText;
+                if (currentInput.toString().substr(0, 1) === '-') {
+                    currentInput = currentInput.toString().substr(1);
                 } else {
-                    const result = this.performCalculation();
-                    if (value === '=') {
-                        this.setState({
-                            stack: [result],
-                            currentResult: result,
-                            currentInput: 0,
-                            displayText: result,
-                            currentOperation: null
-                        });
-                        return;
-                    }
-
-                    this.setState({
-                        currentResult: result,
-                        currentInput: 0,
-                        displayText: result,
-                        currentOperation: value
-                    });
+                    currentInput = '-' + currentInput;
                 }
-            } else {
-                if (value === '=') {
-                    console.log('a')
-                    return;
-                }
-                const operationValue = value === '=' ? null : value;
-
-                this.setState({ currentOperation: operationValue });
-
-            }
-        } else if (type === 'Number') {
-            let currentInput = this.state.currentInput;
-            currentInput = currentInput.toString() + value;
-            if (currentInput.substr(0, 1) === '0') {
-                currentInput = currentInput.substr(1);
-            }
-            this.setState({
-                currentInput: currentInput,
-                displayText: currentInput
-            });
+                this.setState({
+                    currentInput: currentInput,
+                    displayText: currentInput
+                });
+                break;
+            case '=':
+                this.props.pressEqualsTo();
+                break;
+            default:
+                this.props.pressOperation(value);
+                break;
         }
 
 
-        this.setState((prevState) => {
-            return {
-                stack: prevState.stack.concat(value),
-                errorText: null
-            }
-        });
+        // if (type === 'Operation') {
+        //     if (this.state.currentInput !== 0) {
+        //         if (!this.state.currentOperation) {
+        //             this.setState((prevState) => {
+        //                 return {
+        //                     currentResult: Number(prevState.currentInput),
+        //                     currentInput: 0,
+        //                     currentOperation: value
+        //                 }
+        //             });
+        //         } else {
+        //             const result = this.performCalculation();
+        //             if (value === '=') {
+        //                 this.setState({
+        //                     stack: [result],
+        //                     currentResult: result,
+        //                     currentInput: 0,
+        //                     displayText: result,
+        //                     currentOperation: null
+        //                 });
+        //                 return;
+        //             }
+
+        //             this.setState({
+        //                 currentResult: result,
+        //                 currentInput: 0,
+        //                 displayText: result,
+        //                 currentOperation: value
+        //             });
+        //         }
+        //     } else {
+        //         if (value === '=') {
+        //             console.log('a')
+        //             return;
+        //         }
+        //         const operationValue = value === '=' ? null : value;
+
+        //         this.setState({ currentOperation: operationValue });
+
+        //     }
+        // }
+
     }
 
     performCalculation = () => {
@@ -133,22 +122,11 @@ class Calculator extends Component {
         }
     }
 
-    resetStates = () => {
-        this.setState({
-            stack: [],
-            currentResult: 0,
-            currentInput: 0,
-            displayText: 0,
-            currentOperation: null,
-            errorText: null
-        });
-    }
-
     render() {
-        console.log(this.state);
+        console.log(this.props);
         return (
             <Aux>
-                <DisplayPanel currentValue={this.state.displayText} stackValue={this.state.stack} />
+                <DisplayPanel currentValue={this.props.displayText} stackValue={this.props.stack} />
                 <ButtonsPanel
                     onButtonPressed={this.onButtonPressed} />
             </Aux>
@@ -156,4 +134,25 @@ class Calculator extends Component {
     }
 }
 
-export default Calculator;
+const mapStateToProps = state => {
+    return {
+        stack: [...state.stack],
+        currentResult: state.currentResult,
+        currentInput: state.currentInput,
+        displayText: state.displayText,
+        currentOperation: state.currentOperation,
+        errorText: state.errorText
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        pressC: () => dispatch({ type: PRESS_C_BUTTON }),
+        pressBackspace: () => dispatch({ type: PRESS_BACKSPACE_BUTTON }),
+        pressNumber: (value) => dispatch({ type: PRESS_NUMBER_BUTTON, value: value }),
+        pressEqualsTo: () => dispatch({ type: PRESS_EQUALS_TO_BUTTON }),
+        pressOperation: (value) => dispatch({ type: PRESS_OPERATION_BUTTON, value: value })
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calculator);
