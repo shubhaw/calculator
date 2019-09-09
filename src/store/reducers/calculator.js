@@ -51,7 +51,7 @@ const pressNumberButton = (state, action) => {
 }
 
 const pressBackspaceButton = (state) => {
-    let currentInput = state.currentInput.substr(0, state.currentInput.length - 1);
+    let currentInput = state.currentInput.toString().substr(0, state.currentInput.length - 1);
     if(currentInput === '') {
         currentInput = '0';
     }
