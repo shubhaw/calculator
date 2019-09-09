@@ -24,3 +24,7 @@
     transform: translateY(1px);
     filter: saturate(150%);
 }
+
+.Hide {
+    visibility: hidden;
+}
