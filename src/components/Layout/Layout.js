@@ -6,7 +6,7 @@ import CurrencyConverter from '../../containers/CurrencyConverter/CurrencyConver
 const Layout = props => {
     return (
         <div className={styleClasses.Layout}>
-            {/* <Calculator /> */}
+            <Calculator />
             <CurrencyConverter />
         </div>
     );

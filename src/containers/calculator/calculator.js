@@ -53,7 +53,7 @@ class Calculator extends Component {
     }
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <Aux>
                 <DisplayPanel currentValue={this.props.displayText} stackValue={this.props.stack} />
@@ -66,12 +66,12 @@ class Calculator extends Component {
 
 const mapStateToProps = state => {
     return {
-        stack: [...state.stack],
-        currentResult: state.currentResult,
-        currentInput: state.currentInput,
-        displayText: state.displayText,
-        currentOperation: state.currentOperation,
-        errorText: state.errorText
+        stack: [...state.calculator.stack],
+        currentResult: state.calculator.currentResult,
+        currentInput: state.calculator.currentInput,
+        displayText: state.calculator.displayText,
+        currentOperation: state.calculator.currentOperation,
+        errorText: state.calculator.errorText
     }
 };
 

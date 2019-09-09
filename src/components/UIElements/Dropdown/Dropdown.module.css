@@ -1,0 +1,12 @@
+.Dropdown {
+    outline: none;
+    background-color: black;
+}
+
+.Dropdown select {
+    padding: 10px 20px;
+    color: white;
+    background-color: black;
+    outline: none;
+    border: none;
+}

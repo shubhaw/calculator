@@ -37,7 +37,7 @@ const ButtonsPanel = props => {
             <div>
                 <Button onPress={props.onButtonPressed} buttonType='Operation' value='+/-' hide={props.isCurrencyConverter && !props.isCalculator} />
                 <Button onPress={props.onButtonPressed} buttonType='Number' value='0' />
-                <Button onPress={props.onButtonPressed} buttonType='Number' value='.' />
+                <Button onPress={props.onButtonPressed} buttonType='Operation' value='.' />
                 <Button onPress={props.onButtonPressed} buttonType='Operation' value='=' hide ={props.isCurrencyConverter && !props.isCalculator}/>
             </div>
         </div>
