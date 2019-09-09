@@ -57,7 +57,7 @@ class Calculator extends Component {
         return (
             <Aux>
                 <DisplayPanel currentValue={this.props.displayText} stackValue={this.props.stack} />
-                <ButtonsPanel
+                <ButtonsPanel isCalculator
                     onButtonPressed={this.onButtonPressed} />
             </Aux>
         );
