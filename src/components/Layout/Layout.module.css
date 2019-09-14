@@ -1,22 +1,15 @@
 .Layout {
-    margin: 50px auto;
-    border: 10px ridge silver;
+    /* width: 90%;
+    margin: 20px auto;
+    border: 5px ridge silver; */
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
 }
-
-
 
 @media (min-width:500px) {
     .Layout {
         width: 500px;
-    }
-}
-
-@media (max-width:500px) {
-    .Layout {
-        width: 90%;
-        margin:20px 0 20px 20px auto;
-        border: 5px ridge silver;
-        
+        margin: 50px auto;
     }
 }
