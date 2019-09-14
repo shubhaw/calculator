@@ -2,7 +2,7 @@ import React from 'react';
 import styleClasses from './Button.module.css';
 
 const Button = (props) => {
-    let classes = [styleClasses.Button, styleClasses[props.buttonType]];
+    let classes = [styleClasses.Button, styleClasses[props.buttonType], [props.styleClass]];
     
     if(props.hide) {
         classes.push(styleClasses.Hide);
