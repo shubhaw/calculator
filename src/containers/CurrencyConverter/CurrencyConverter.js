@@ -10,11 +10,18 @@ import {
     PRESS_CURRENCY_DOT_BUTTON
 } from '../../store/actions/actionTypes';
 
+import {fetchRatesFromAPI} from '../../store/actions/currencyConverter';
+
 import Aux from '../../hoc//Auxiliary/Auxiliary';
 import ButtonsPanel from '../../components/ButtonsPanel/ButtonsPanel';
 import ConversionPanel from '../../components/ConversionPanel/ConversionPanel';
 
 class CurrencyConverter extends Component {
+    
+    componentDidMount = () => {
+        this.props.fetchAndStoreRates(this.props.conversionData);
+    }
+    
     onButtonPressed = (type, value) => {
         if (type === 'Number') {
             this.props.onButtonPressed(value);
@@ -58,6 +65,7 @@ class CurrencyConverter extends Component {
 
 const mapStateToProps = state => {
     return {
+        conversionData: state.currencyConverter.conversionData,
         currencyList: state.currencyConverter.currencyList,
         baseCurrency: state.currencyConverter.baseCurrency,
         targetCurrency: state.currencyConverter.targetCurrency,
@@ -68,7 +76,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        newBaseCountrySelected: (currency) => dispatch({ type: CHANGE_BASE_CURRENCY, currency: currency }),
+        fetchAndStoreRates: (conversionData) => dispatch(fetchRatesFromAPI(conversionData)),
+        newBaseCountrySelected: (currency) => dispatch({type: CHANGE_BASE_CURRENCY, baseCurrency: currency}),
         newTargetCountrySelected: (currency) => dispatch({ type: CHANGE_TARGET_CURRENCY, currency: currency }),
         onButtonPressed: (value) => dispatch({ type: PRESS_CURRENCY_NUMBER_BUTTON, value: value }),
         onBackspacePressed: () => dispatch({ type: PRESS_CURRENCY_BACKSPACE_BUTTON }),
