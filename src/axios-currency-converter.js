@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create(
     {
-        baseURL: 'https://shubhaw-burger.firebaseio.com/'
+        baseURL: 'https://api.exchangeratesapi.io/'
     }
 );
 
